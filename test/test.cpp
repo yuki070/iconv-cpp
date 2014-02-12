@@ -1,15 +1,22 @@
 #include <iostream>
+#include <string>
 #include <iconv.hpp>
 
 int main () {
-    std::string out1;
-    std::string out2;
-    CharsetConvertor convt1(CharsetConvertor::CHARSET_GBK, CharsetConvertor::CHARSET_UNICODE);
-    CharsetConvertor convt2(CharsetConvertor::CHARSET_UNICODE, CharsetConvertor::CHARSET_GBK);
-    out1 = convt1.convert("中国1勃起");
-    out2 = convt1.convert("毛mao邓deng三san");
-    std::cout << out1 << "(" << out1.length() << ");" << out2 << "(" << out2.length() << ")" << std::endl;
-    out1 = convt2.convert(out1);
-    out2 = convt2.convert(out2);
-    std::cout << out1 << "(" << out1.length() << ");" << out2 << "(" << out2.length() << ")" << std::endl;
+    CharsetConvertor gbk2uni(CharsetConvertor::CHARSET_GBK, CharsetConvertor::CHARSET_UNICODE);
+    CharsetConvertor uni2gbk(CharsetConvertor::CHARSET_UNICODE, CharsetConvertor::CHARSET_GBK);
+    if (uni2gbk.convert(gbk2uni.convert("中华人民共和国")).compare("中华人民共和国") != 0) {
+        std::cerr << "ERROR in line:" << __LINE__ << std::endl;
+        return 1;
+    } else {
+        std::cout << "EXPECT EQUAL [PASS]" << std::endl;
+    }
+
+    try {
+        gbk2uni.setOutputBufferSize(4);
+        gbk2uni.convert("hello");   // overflow
+    } catch (...) {
+        std::cout << "EXPECT THROW [PASS]" << std::endl;
+    }
+    return 0;
 }
