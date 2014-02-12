@@ -1,7 +1,7 @@
 iconv-cpp
 =========
 
-Encapsulate the 'iconv' with cpp
+Encapsulate the `libiconv` with cpp
 
 ### INSTALL
 #### linux:
