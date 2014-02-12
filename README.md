@@ -26,5 +26,5 @@ Encapsulate the `libiconv` with cpp
     
     int main () {
         CharsetConvertor convt(CharsetConvertor::CHARSET_GBK, CharsetConvertor::CHARSET_UNICODE);
-        std::string uniStr = convt1.convert("ä»Šå¤©,å¤©æ°”å·æ™´æœ—!");
+        std::string uniStr = convt1.convert("½ñÌì,ÌìÆøºÃÇçÀÊ!");
     }
