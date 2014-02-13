@@ -1,1 +1,2 @@
-SUBDIRS = include test
+SUBDIRS = include example
+EXTRA_DIST = test

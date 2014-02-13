@@ -23,6 +23,6 @@ AC_CHECK_FUNCS([memset strerror])
 AM_CONDITIONAL(IS_AIX, test `uname -s` = "AIX")
 
 AC_CONFIG_FILES([Makefile
-                 test/Makefile
+                 example/Makefile
                  include/Makefile])
 AC_OUTPUT

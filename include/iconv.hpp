@@ -9,7 +9,8 @@ public:
     CharsetConvertor(const std::string &fromCharset, const std::string &toCharset) {
         this->fromCharset = fromCharset;
         this->toCharset = toCharset;
-        outputBufferSize = DEFAULT_BUFFER_SIZE;
+        this->outputBufferSize = DEFAULT_BUFFER_SIZE;
+        this->outStr = new char[outputBufferSize];
         conv = iconv_open(toCharset.c_str(), fromCharset.c_str());
         if (conv == (iconv_t) -1) {
             throw std::runtime_error(strerror(errno));
@@ -17,11 +18,18 @@ public:
     }
 
     virtual ~CharsetConvertor() {
+        if (outStr) {
+            delete []outStr;
+        }
         iconv_close(conv);
     }
 
     void setOutputBufferSize(size_t buffer) {
         this->outputBufferSize = buffer;
+        if (outStr) {
+            delete []outStr;
+        }
+        this->outStr = new char[outputBufferSize];
     }
 
     size_t getOutputBufferSize() const {
@@ -33,7 +41,7 @@ public:
         char *pIn = const_cast<char *>(inStr);
         size_t inLen = input.length();
 
-        char *outStr = new char[outputBufferSize];
+        //char *outStr = new char[outputBufferSize];
         memset(outStr, 0, outputBufferSize);
         char *pOut = outStr;
         size_t outLen = outputBufferSize;
@@ -49,7 +57,7 @@ public:
         }
 #endif
         output = std::string(outStr, outStr + (outputBufferSize - outLen));
-        delete []outStr;
+        //delete []outStr;
         return output;
     }
 
@@ -62,6 +70,7 @@ private:
     size_t outputBufferSize;
     std::string fromCharset;
     std::string toCharset;
+    char *outStr;
 };
 
 const size_t CharsetConvertor::DEFAULT_BUFFER_SIZE = 1024;
