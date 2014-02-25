@@ -9,4 +9,4 @@ TESTS = test
 
 test_SOURCES = test.cpp
 test_CPPFLAGS = -I$(top_srcdir)/include
-test_LDADD = $(ICONV_LIB)
+test_LDADD = $(top_srcdir)/src/libiconvx.a $(ICONV_LIB)

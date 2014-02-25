@@ -9,6 +9,7 @@ AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
 AC_PROG_CXX
+AC_PROG_RANLIB
 
 # Checks for libraries.
 
@@ -24,5 +25,6 @@ AM_CONDITIONAL(IS_AIX, test `uname -s` = "AIX")
 
 AC_CONFIG_FILES([Makefile
                  example/Makefile
-                 include/Makefile])
+                 include/Makefile
+                 src/Makefile])
 AC_OUTPUT
