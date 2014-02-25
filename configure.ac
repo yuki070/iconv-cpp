@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 #AC_PREREQ([2.68])
-AC_INIT([iconv-cpp], [1.0.0], [jianqiang070@foxmail.com])
+AC_INIT([iconv-cpp], [1.0.1], [jianqiang070@foxmail.com])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([include/iconv.hpp])
 AC_CONFIG_HEADERS([config.h])
