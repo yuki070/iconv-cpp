@@ -11,10 +11,10 @@ public:
     CharsetConvertor(const std::string &fromCharset, const std::string &toCharset, size_t outputBufferSize = DEFAULT_BUFFER_SIZE);
     virtual ~CharsetConvertor();
 
-    void setOutputBufferSize(size_t buffer);
-    size_t getOutputBufferSize() const;
+    void SetOutputBufferSize(size_t buffer);
+    size_t GetOutputBufferSize() const;
 
-    std::string convert(const std::string &input);
+    std::string Convert(const std::string &input);
 
     static const size_t DEFAULT_BUFFER_SIZE;
     static const char*  CHARSET_UNICODE;
@@ -34,8 +34,8 @@ private:
 
 class FlyWeight {
 public:
-    static CharsetConvertor *getCharsetConvertor(const std::string &fromCharset, const std::string &toCharset);
+    static CharsetConvertor *GetCharsetConvertor(const std::string &fromCharset, const std::string &toCharset);
 private:
-    static std::map<std::string, CharsetConvertor *> convertorMap;
+    static std::map<std::string, CharsetConvertor *> _convertorMap;
 };
 

@@ -23,7 +23,7 @@ CharsetConvertor::~CharsetConvertor() {
     iconv_close(_conv);
 }
 
-void CharsetConvertor::setOutputBufferSize(size_t buffer) {
+void CharsetConvertor::SetOutputBufferSize(size_t buffer) {
     _nOutBufferSize = buffer;
     if (_szOutStr) {
         delete []_szOutStr;
@@ -31,11 +31,11 @@ void CharsetConvertor::setOutputBufferSize(size_t buffer) {
     _szOutStr = new char[_nOutBufferSize];
 }
 
-size_t CharsetConvertor::getOutputBufferSize() const {
+size_t CharsetConvertor::GetOutputBufferSize() const {
     return _nOutBufferSize;
 }
 
-std::string CharsetConvertor::convert(const std::string &input) {
+std::string CharsetConvertor::Convert(const std::string &input) {
     const char *inStr = input.c_str();
     char *pIn = const_cast<char *>(inStr);
     size_t inLen = input.length();
@@ -60,13 +60,13 @@ std::string CharsetConvertor::convert(const std::string &input) {
 
 
 
-std::map<std::string, CharsetConvertor *> FlyWeight::convertorMap;
+std::map<std::string, CharsetConvertor *> FlyWeight::_convertorMap;
 
-CharsetConvertor *FlyWeight::getCharsetConvertor(const std::string &fromCharset, const std::string &toCharset) {
+CharsetConvertor *FlyWeight::GetCharsetConvertor(const std::string &fromCharset, const std::string &toCharset) {
     std::ostringstream indexStream;
     indexStream << fromCharset << "_" << toCharset;
-    if (convertorMap.find(indexStream.str()) == convertorMap.end()){
-        convertorMap.insert(std::pair<std::string, CharsetConvertor *>(indexStream.str(), new CharsetConvertor(fromCharset, toCharset)));
+    if (_convertorMap.find(indexStream.str()) == _convertorMap.end()){
+        _convertorMap.insert(std::pair<std::string, CharsetConvertor *>(indexStream.str(), new CharsetConvertor(fromCharset, toCharset)));
     }
-    return convertorMap[indexStream.str()];
+    return _convertorMap[indexStream.str()];
 }
